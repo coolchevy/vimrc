@@ -36,6 +36,7 @@ set incsearch		" do incremental searching
 set winaltkeys=no
 set filetype=on
 set fileformat=unix
+set wrap
 
 autocmd FileType python set softtabstop=4 shiftwidth=4 expandtab nowrap smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 "au! BufRead,BufNewFile *.json set filetype=javascript "foldmethod=syntax
@@ -180,17 +181,21 @@ set nobackup
 "" --------------------------------------
 "" colors
 "" --------------------------------------
-if has("gui_running")
+if has("gui_running") 
+"if has("gui_gtk2") 
+"    if has("x11")
 "    colorscheme desert
 "    colorscheme MetaCosm
+    colorscheme wombat
     set guioptions=-t
-    highlight Normal guibg=lightyellow
+    "highlight Normal guibg=lightyellow
+else
+    colorscheme elflord
 endif
 "set background=dark
 "colorscheme koehler
 "colorscheme slate
 "colorscheme desert
-colorscheme wombat
 "hi Folded ctermbg=yellow
 "let g:colors_name="desert"
 "highlight Comment cterm=italic
