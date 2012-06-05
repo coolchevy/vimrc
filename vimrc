@@ -186,6 +186,7 @@ if has("gui_running")
     set guioptions=-t
     highlight Normal guibg=lightyellow
 endif
+set t_Co=256
 "set background=dark
 "colorscheme koehler
 "colorscheme slate
@@ -235,6 +236,9 @@ menu Encoding.ibm-866      :e ++enc=ibm866<CR>
 menu Encoding.utf-8                :e ++enc=utf-8 <CR>
 map <F9> :emenu Encoding.<TAB>
 nmap <C-J> :%!python -m json.tool<CR>
+
+"clean html
+nmap <C-L> :%s/>/>\r/g <CR> :%s/</\r</gc <CR> :%s/^[\ \t]*\n//g <CR>
 
 
 
