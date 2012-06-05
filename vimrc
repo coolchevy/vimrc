@@ -190,7 +190,7 @@ if has("gui_running")
     set guioptions=-t
     "highlight Normal guibg=lightyellow
 else
-    colorscheme elflord
+    colorscheme lucius
 endif
 set t_Co=256
 "set background=dark
