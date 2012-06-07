@@ -46,6 +46,7 @@ au! Syntax json source ~/.vim/ftplugin/json.vim
 "autocmd BufNewFile *.py       TSkeletonSetup py.py
 "autocmd BufRead *.py       TSkeletonSetup py.py
 autocmd FileType php set softtabstop=4 shiftwidth=4 expandtab
+autocmd BufRead * silent! %s/[\r \t]\+$//
 "au BufNewFile,BufRead *.dump set filetype=sql
 "source ~/.vim/syntax/htmldjango.vim
 source ~/.vim/syntax/django.vim
@@ -400,3 +401,10 @@ vnoremap <Space> zf
 "HL
 "set nowrap list listchars=eol:¿,tab:¿¿,trail:_,extends:¿,precedes:¿
 
+"wildmenu
+set wildmenu
+set wildmode=list:longest,full
+
+ 
+"mouse
+"set mouse=a
