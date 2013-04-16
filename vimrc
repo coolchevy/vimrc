@@ -415,6 +415,6 @@ nnoremap gf :vertical wincmd f<CR>
 
 "Erlang skeleton
 
-let g:erl_author="coolchevy"
-let g:erl_company="Favbet.com"
+let g:erl_author="Vitalii Kulchevych <coolchevy@gmail.com>"
+let g:erl_company="coolchevy"
 let g:erl_replace_buffer=1
