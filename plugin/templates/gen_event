@@ -8,6 +8,8 @@
 %%%-------------------------------------------------------------------
 -module($basename).
 
+-author("$author").
+
 -behaviour(gen_event).
 
 %% API
@@ -15,7 +17,7 @@
 
 %% gen_event callbacks
 -export([init/1, handle_event/2, handle_call/2,
-                 handle_info/2, terminate/2, code_change/3]).
+        handle_info/2, terminate/2, code_change/3]).
 
 -define(SERVER, ?MODULE).
 
@@ -33,7 +35,7 @@
 %% @end
 %%--------------------------------------------------------------------
 start_link() ->
-        gen_event:start_link({local, ?SERVER}).
+    gen_event:start_link({local, ?SERVER}).
 
 %%--------------------------------------------------------------------
 %% @doc
@@ -43,7 +45,7 @@ start_link() ->
 %% @end
 %%--------------------------------------------------------------------
 add_handler() ->
-        gen_event:add_handler(?SERVER, ?MODULE, []).
+    gen_event:add_handler(?SERVER, ?MODULE, []).
 
 %%%===================================================================
 %%% gen_event callbacks
@@ -59,7 +61,7 @@ add_handler() ->
 %% @end
 %%--------------------------------------------------------------------
 init([]) ->
-        {ok, #state{}}.
+    {ok, #state{}}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -75,7 +77,7 @@ init([]) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_event(_Event, State) ->
-        {ok, State}.
+    {ok, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -91,8 +93,8 @@ handle_event(_Event, State) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_call(_Request, State) ->
-        Reply = ok,
-        {ok, Reply, State}.
+    Reply = ok,
+    {ok, Reply, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -108,7 +110,7 @@ handle_call(_Request, State) ->
 %% @end
 %%--------------------------------------------------------------------
 handle_info(_Info, State) ->
-        {ok, State}.
+    {ok, State}.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -121,7 +123,7 @@ handle_info(_Info, State) ->
 %% @end
 %%--------------------------------------------------------------------
 terminate(_Reason, _State) ->
-        ok.
+    ok.
 
 %%--------------------------------------------------------------------
 %% @private
@@ -132,7 +134,7 @@ terminate(_Reason, _State) ->
 %% @end
 %%--------------------------------------------------------------------
 code_change(_OldVsn, State, _Extra) ->
-        {ok, State}.
+    {ok, State}.
 
 %%%===================================================================
 %%% Internal functions
