@@ -118,6 +118,8 @@ endif
 
 "source ~/.vim/ftplugin/django.vim
 "source ~/.vim/ftplugin/htmldjango.vim
+"
+"execute pathogen#infect()
 
 set dictionary += "/usr/share/vim/vimfiles/dictionaries/PHP.dict"
 " Only do this part when compiled with support for autocommands.
@@ -182,6 +184,7 @@ set nobackup
 "" --------------------------------------
 "" colors
 "" --------------------------------------
+set t_Co=256
 if has("gui_running")
 "if has("gui_gtk2")
 "    if has("x11")
@@ -193,7 +196,6 @@ if has("gui_running")
 else
     colorscheme lucius
 endif
-set t_Co=256
 "set background=dark
 "colorscheme koehler
 "colorscheme slate
@@ -418,3 +420,10 @@ nnoremap gf :vertical wincmd f<CR>
 let g:erl_author="Vitalii Kulchevych <coolchevy@gmail.com>"
 let g:erl_company="coolchevy"
 let g:erl_replace_buffer=1
+
+
+" VimClojure
+execute pathogen#infect()
+let g:vimclojure#HighlightBuiltins = 1
+let g:vimclojure#ParenRainbow = 1
+let g:vimclojure#WantNailgun = 1
