@@ -239,6 +239,7 @@ menu Encoding.koi8-r   :e ++enc=koi8-r<CR>
 menu Encoding.windows-1251 :e ++enc=cp1251<CR>
 menu Encoding.ibm-866      :e ++enc=ibm866<CR>
 menu Encoding.utf-8                :e ++enc=utf-8 <CR>
+menu Encoding.utf-16                :e ++enc=utf-16 <CR>
 map <F9> :emenu Encoding.<TAB>
 nmap <C-J> :%!python -m json.tool<CR>
 
