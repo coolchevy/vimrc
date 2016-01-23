@@ -46,6 +46,7 @@ au! Syntax json source ~/.vim/ftplugin/json.vim
 "autocmd BufNewFile *.py       TSkeletonSetup py.py
 "autocmd BufRead *.py       TSkeletonSetup py.py
 autocmd FileType php set softtabstop=4 shiftwidth=4 expandtab
+autocmd BufRead * silent! %s/[\r \t]\+$//
 "au BufNewFile,BufRead *.dump set filetype=sql
 "source ~/.vim/syntax/htmldjango.vim
 source ~/.vim/syntax/django.vim
@@ -62,34 +63,34 @@ source ~/.vim/syntax/django.vim
 "¿¿- PYTHON ¿¿-
 "autocmd BufNewFile *.py 0r ~/.vim/skeleton.py
 "autocmd BufNewFile *.py   ks|call LastMod()|¿s
-fun LastMod()
- if line("$") > 20
-   let l = 20
- else
-   let l = line("$")
- endif
- exe "1," . l . "g/Created: /s/Created: .*/Created: " . strftime("%Y %b %d")
- exe "2s/<year>/" . strftime("%Y")
-endfun
+"fun LastMod()
+" if line("$") > 20
+"   let l = 20
+" else
+"   let l = line("$")
+" endif
+" exe "1," . l . "g/Created: /s/Created: .*/Created: " . strftime("%Y %b %d")
+" exe "2s/<year>/" . strftime("%Y")
+"endfun
+"
+"function! LastModified()
+"    if &modified
+"        let save_cursor = getpos(".")
+"        let n = min([20, line("$")])
+"        exe '1,' . n . 's#^\(.\{,10}Last modified: \).*#\1' .
+"                    \ strftime('%a %b %d, %Y  %I:%M%p') . '#e'
+"        call setpos('.', save_cursor)
+"    endif
+"endfun
+"autocmd BufWritePre * call LastModified()
 
-function! LastModified()
-    if &modified
-        let save_cursor = getpos(".")
-        let n = min([20, line("$")])
-        exe '1,' . n . 's#^\(.\{,10}Last modified: \).*#\1' .
-                    \ strftime('%a %b %d, %Y  %I:%M%p') . '#e'
-        call setpos('.', save_cursor)
-    endif
-endfun
-autocmd BufWritePre * call LastModified()
+"let tskelUserName = "Vitalii Kulchevych (coolcheyv aka tuniq)"
+"let tskelUserEmail = "coolchevy@gmail.com"
+"let tskelUserWWW = "http://coolchevy.org.ua/"
+"let tskelDateFormat = "%Y-%m-%d %H:%M:%S"
 
-let tskelUserName = "Vitalii Kulchevych (coolcheyv aka tuniq)"
-let tskelUserEmail = "coolchevy@gmail.com"
-let tskelUserWWW = "http://coolchevy.org.ua/"
-let tskelDateFormat = "%Y-%m-%d %H:%M:%S"
-
-let tortoiseSvnCommitOnce = 1
-let tortoiseSvnInstallAutoCmd = 0
+"let tortoiseSvnCommitOnce = 1
+"let tortoiseSvnInstallAutoCmd = 0
 
 let PHP_removeCRwhenUnix = 1
 
@@ -115,8 +116,10 @@ if &t_Co > 2 || has("gui_running")
 "  source /usr/local/share/vim/vimfiles/ftplugin/php.vim
 endif
 
-"source ~/.vim/ftplugin/django.vim  
+"source ~/.vim/ftplugin/django.vim
 "source ~/.vim/ftplugin/htmldjango.vim
+"
+"execute pathogen#infect()
 
 set dictionary += "/usr/share/vim/vimfiles/dictionaries/PHP.dict"
 " Only do this part when compiled with support for autocommands.
@@ -181,8 +184,9 @@ set nobackup
 "" --------------------------------------
 "" colors
 "" --------------------------------------
-if has("gui_running") 
-"if has("gui_gtk2") 
+set t_Co=256
+if has("gui_running")
+"if has("gui_gtk2")
 "    if has("x11")
 "    colorscheme desert
 "    colorscheme MetaCosm
@@ -192,7 +196,6 @@ if has("gui_running")
 else
     colorscheme lucius
 endif
-set t_Co=256
 "set background=dark
 "colorscheme koehler
 "colorscheme slate
@@ -277,7 +280,7 @@ if has("gui_running")
 "        set guifont=Terminus:h12:cDEFAULT
         set guifont=Monaco:h14
     endif
-endif 
+endif
 " / SET GUI FONT
 
 ""iab dprint print "<pre>debug: \n";<CR>print_r($);<CR>print "</pre>\n";<CR>
@@ -291,6 +294,7 @@ endif
 "iab dp dump(, '');
 "python
 "iab utfheader # -*- coding:utf-8 -*-
+"iab vinow :r! date<CR><Esc>
 
 
 set statusline=%<%f%h%m%r%=%b\ %{&encoding}\ 0x%B\ \ %l,%c%V\ %P
@@ -308,7 +312,7 @@ cmap <S-Insert>		<C-R>+
 " CTRL-a Select All
 map <C-a>	ggVG
 
-let python_highlight_all = 1 
+let python_highlight_all = 1
 
 
 function! Pep8all()
@@ -316,7 +320,7 @@ function! Pep8all()
     let &grepprg='pep8 --filename="*py" .'
     execute "grep"
     let &grepprg=oldGrepPrg
-    cw    
+    cw
 endf
 command! Pep8all call Pep8all()
 
@@ -357,7 +361,7 @@ else
                     \ "<F5> is taken and a replacement was not assigned."
     endif
 endif
-    
+
 "nmap <buffer> <F5> :w<Esc>mwG:r!python %<CR>`.
 
 
@@ -372,7 +376,7 @@ endif
 
 
 
-"BINDINGS 
+"BINDINGS
 " Changing Case
 " guu                             : lowercase line
 " gUU                             : uppercase line
@@ -394,10 +398,33 @@ nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
 vnoremap <Space> zf
 
 
-"let g:erlangManPath='/opt/local/lib/erlang/man'
+let g:erlangManPath='/opt/local/lib/erlang/man'
 "let g:erlangCompletionDisplayDoc=1
 "let g:erlangHighlightBif=1
 
 "HL
 "set nowrap list listchars=eol:¿,tab:¿¿,trail:_,extends:¿,precedes:¿
 
+"wildmenu
+set wildmenu
+set wildmode=list:longest,full
+
+"gotofile
+nnoremap gf :vertical wincmd f<CR>
+
+"mouse
+"set mouse=a
+
+
+"Erlang skeleton
+
+let g:erl_author="Vitalii Kulchevych <coolchevy@gmail.com>"
+let g:erl_company="coolchevy"
+let g:erl_replace_buffer=1
+
+
+" VimClojure
+execute pathogen#infect()
+let g:vimclojure#HighlightBuiltins = 1
+let g:vimclojure#ParenRainbow = 1
+let g:vimclojure#WantNailgun = 1
