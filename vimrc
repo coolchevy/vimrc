@@ -38,7 +38,12 @@ Plugin 'tpope/vim-sensible'
 Plugin 'airblade/vim-gitgutter'
 " The ultimate vim statusline utility. DEPRECATED in favor of Lokaltog/powerline.
 Plugin 'bling/vim-airline'
+" fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plugin 'tpope/vim-fugitive'
+" nginx webserver
+Plugin 'nginx.vim'
+" Simple indent for apache config files
+Plugin 'apachestyle'
 
 
 
