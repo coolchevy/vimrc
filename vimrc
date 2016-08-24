@@ -27,6 +27,7 @@ Plugin 'oscarh/vimerl'
 Plugin 'vim-erlang/vim-erlang-skeletons'
 Plugin 'edkolev/erlang-motions.vim'
 Plugin 'mbbx6spp/vim-rebar'
+Plugin 'akalyaev/vim-erlang-spec'
 "Erlang-friendly gVim/MacVim colorscheme (dark, lo-co)
 Plugin 'aerosol/vim-compot'
 " syntax checker
@@ -465,3 +466,10 @@ let g:syntastic_style_warning_symbol = '⚠'
 let g:syntastic_python_checkers=['python', 'flake8']
 let g:syntastic_python_flake8_post_args='--ignore=W391'
 let erlang_show_errors = 1
+
+
+
+"-------------------------------------------------------
+" erlang spec
+" \s added spec
+nnoremap <leader>s :ErlangSpec<CR>
