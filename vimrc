@@ -26,6 +26,7 @@ Plugin 'jonathanfilip/vim-lucius'
 Plugin 'oscarh/vimerl'
 Plugin 'vim-erlang/vim-erlang-skeletons'
 Plugin 'edkolev/erlang-motions.vim'
+Plugin 'mbbx6spp/vim-rebar'
 "Erlang-friendly gVim/MacVim colorscheme (dark, lo-co)
 Plugin 'aerosol/vim-compot'
 " syntax checker
@@ -36,6 +37,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'tpope/vim-sensible'
 "A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
 Plugin 'airblade/vim-gitgutter'
+Plugin 'mhinz/vim-signify'
 " The ultimate vim statusline utility. DEPRECATED in favor of Lokaltog/powerline.
 Plugin 'bling/vim-airline'
 " fugitive.vim: a Git wrapper so awesome, it should be illegal
@@ -44,6 +46,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'nginx.vim'
 " Simple indent for apache config files
 Plugin 'apachestyle'
+" Vim script for text filtering and alignment
+Plugin 'godlygeek/tabular'
 
 
 
