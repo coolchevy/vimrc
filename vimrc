@@ -1,16 +1,80 @@
-" .vimrc file											|
-"														|
-" Maintainer:	coolchevy								|
-" Last change:	2006 04 04								|
-" http://rayninfo.co.uk/vimtips.html														|
+" .vimrc file
+" Maintainer:	coolchevy@gmail.com
 "-------------------------------------------------------
 
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-  finish
-endif
+"-------------------------------------------------------
+" Vundle
 
-"set autowrite
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+
+" vim wombat colorscheme for pathogen.vim
+Plugin 'cschlueter/vim-wombat'
+" vim colorscheme https://github.com/jonathanfilip/lucius
+Plugin 'jonathanfilip/vim-lucius'
+" The Erlang plugin for Vim.
+"Plugin 'jimenezrick/vimerl'
+"Plugin 'vim-erlang/vim-erlang-runtime'
+Plugin 'oscarh/vimerl'
+Plugin 'vim-erlang/vim-erlang-skeletons'
+Plugin 'edkolev/erlang-motions.vim'
+"Erlang-friendly gVim/MacVim colorscheme (dark, lo-co)
+Plugin 'aerosol/vim-compot'
+" syntax checker
+Plugin 'scrooloose/syntastic'
+" Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
+Plugin 'ctrlpvim/ctrlp.vim'
+" sensible.vim: Defaults everyone can agree on
+Plugin 'tpope/vim-sensible'
+"A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks.
+Plugin 'airblade/vim-gitgutter'
+" The ultimate vim statusline utility. DEPRECATED in favor of Lokaltog/powerline.
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-fugitive'
+
+
+
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+"Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+"Plugin 'L9'
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+"Plugin 'ascenator/L9', {'name': 'newL9'}
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
+"-------------------------------------------------------
 
 "ignore case when search
 "set ignorecase
@@ -22,13 +86,8 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-
 set autoindent		" always set autoindenting on
-""if has("vms")
-  ""set nobackup		" do not keep a backup file, use versions instead
-""else
-  ""set backup		" keep a backup file
-""endif
+
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
@@ -41,56 +100,10 @@ set wrap
 autocmd FileType python set softtabstop=4 shiftwidth=4 expandtab nowrap smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 "au! BufRead,BufNewFile *.json set filetype=javascript "foldmethod=syntax
 au BufRead,BufNewFile *.json set filetype=json foldmethod=syntax
-au! Syntax json source ~/.vim/ftplugin/json.vim
-"autocmd BufNewFile *.py 0r ~/.vim/skeletons/py.py
-"autocmd BufNewFile *.py       TSkeletonSetup py.py
-"autocmd BufRead *.py       TSkeletonSetup py.py
+
 autocmd FileType php set softtabstop=4 shiftwidth=4 expandtab
 autocmd BufRead * silent! %s/[\r \t]\+$//
 "au BufNewFile,BufRead *.dump set filetype=sql
-"source ~/.vim/syntax/htmldjango.vim
-source ~/.vim/syntax/django.vim
-"source ~/.vim/ftplugin/htmldjango2.vim
-
-"let g:surround_{char2nr("b")} = "{% block\1 \r..*\r &\1%}\r{% endblock %}"
-"let g:surround_{char2nr("i")} = "{% if\1 \r..*\r &\1%}\r{% endif %}"
-"let g:surround_{char2nr("w")} = "{% with\1 \r..*\r &\1%}\r{% endwith %}"
-"let g:surround_{char2nr("c")} = "{% comment\1 \r..*\r &\1%}\r{% endcomment %}"
-"let g:surround_{char2nr("f")} = "{% for\1 \r..*\r &\1%}\r{% endfor %}"
-
-
-"Headers for new files
-"¿¿- PYTHON ¿¿-
-"autocmd BufNewFile *.py 0r ~/.vim/skeleton.py
-"autocmd BufNewFile *.py   ks|call LastMod()|¿s
-"fun LastMod()
-" if line("$") > 20
-"   let l = 20
-" else
-"   let l = line("$")
-" endif
-" exe "1," . l . "g/Created: /s/Created: .*/Created: " . strftime("%Y %b %d")
-" exe "2s/<year>/" . strftime("%Y")
-"endfun
-"
-"function! LastModified()
-"    if &modified
-"        let save_cursor = getpos(".")
-"        let n = min([20, line("$")])
-"        exe '1,' . n . 's#^\(.\{,10}Last modified: \).*#\1' .
-"                    \ strftime('%a %b %d, %Y  %I:%M%p') . '#e'
-"        call setpos('.', save_cursor)
-"    endif
-"endfun
-"autocmd BufWritePre * call LastModified()
-
-"let tskelUserName = "Vitalii Kulchevych (coolcheyv aka tuniq)"
-"let tskelUserEmail = "coolchevy@gmail.com"
-"let tskelUserWWW = "http://coolchevy.org.ua/"
-"let tskelDateFormat = "%Y-%m-%d %H:%M:%S"
-
-"let tortoiseSvnCommitOnce = 1
-"let tortoiseSvnInstallAutoCmd = 0
 
 let PHP_removeCRwhenUnix = 1
 
@@ -112,16 +125,8 @@ vnoremap p <Esc>:let current_reg = @"<CR>gvs<C-R>=current_reg<CR><Esc>
 if &t_Co > 2 || has("gui_running")
   syntax on
   set hlsearch
-"  source C:\Program\ Files\Vim\vimfiles\ftplugin\php.vim
-"  source /usr/local/share/vim/vimfiles/ftplugin/php.vim
 endif
 
-"source ~/.vim/ftplugin/django.vim
-"source ~/.vim/ftplugin/htmldjango.vim
-"
-"execute pathogen#infect()
-
-set dictionary += "/usr/share/vim/vimfiles/dictionaries/PHP.dict"
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
 
@@ -181,35 +186,6 @@ set matchtime=3
 " don't create '~' files
 set nobackup
 
-"" --------------------------------------
-"" colors
-"" --------------------------------------
-set t_Co=256
-if has("gui_running")
-"if has("gui_gtk2")
-"    if has("x11")
-"    colorscheme desert
-"    colorscheme MetaCosm
-    colorscheme wombat
-    set guioptions=-t
-    "highlight Normal guibg=lightyellow
-else
-    colorscheme lucius
-endif
-"set background=dark
-"colorscheme koehler
-"colorscheme slate
-"colorscheme desert
-"hi Folded ctermbg=yellow
-"let g:colors_name="desert"
-"highlight Comment cterm=italic
-"highlight Comment font=Verdana:h14
-"highlight Comment term=italic cterm=italic gui=italic
-"highlight Constant term=bold cterm=bold gui=bold
-"highlight Comment ctermbg=DarkGray
-"highlight Comment cterm=none term=italic gui=italic
-"
-
 
 
 
@@ -255,30 +231,30 @@ nmap <C-L> :%s/>/>\r/g <CR> :%s/</\r</gc <CR> :%s/^[\ \t]*\n//g <CR>
 
 let b:encindex=0
 function! RotateEnc()
-        let y = -1
-        while y == -1
-                let encstring = "#8bit-cp1251#8bit-cp866#utf-8#koi8-r#koi8-u#"
-                let x = match(encstring,"#",b:encindex)
-                let y = match(encstring,"#",x+1)
-                let b:encindex = x+1
-                if y == -1
-                        let b:encindex = 0
-                else
-                        let str = strpart(encstring,x+1,y-x-1)
-                        return ":set encoding=".str
-                endif
-        endwhile
+	let y = -1
+	while y == -1
+		let encstring = "#8bit-cp1251#8bit-cp866#utf-8#koi8-r#koi8-u#"
+		let x = match(encstring,"#",b:encindex)
+		let y = match(encstring,"#",x+1)
+		let b:encindex = x+1
+		if y == -1
+			let b:encindex = 0
+		else
+			let str = strpart(encstring,x+1,y-x-1)
+			return ":set encoding=".str
+		endif
+	endwhile
 endfunction
 
 " SET GUI FONT
 if has("gui_running")
     if has("gui_gtk2")
-        set guifont=Terminus\ 12
+	set guifont=Terminus\ 12
     elseif has("x11")
-        set guifont=-*-Terminus-medium-r-normal-*-*-180-*-*-m-*-*
+	set guifont=-*-Terminus-medium-r-normal-*-*-180-*-*-m-*-*
     else
 "        set guifont=Terminus:h12:cDEFAULT
-        set guifont=Monaco:h14
+	set guifont=Monaco:h14
     endif
 endif
 " / SET GUI FONT
@@ -344,7 +320,7 @@ function <SID>Pep8()
     windo let l:win_count = l:win_count + 1
     if l:win_count <= 2 | let l:win_count = 4 | endif
     windo let l:mod_total = l:mod_total + winheight(0)/l:win_count |
-                \ execute 'resize +'.l:mod_total
+		\ execute 'resize +'.l:mod_total
     " Open cwindow
     execute 'belowright copen '.l:mod_total
     nnoremap <buffer> <silent> c :cclose<CR>
@@ -357,8 +333,8 @@ if ( !hasmapto('<SID>PEP8()') && (maparg('<F5>') == '') )
     map! <F5> :call <SID>Pep8()<CR>
 else
     if ( !has("gui_running") || has("win32") )
-        echo "Python PEP8 Error: No Key mapped.\n".
-                    \ "<F5> is taken and a replacement was not assigned."
+	echo "Python PEP8 Error: No Key mapped.\n".
+		    \ "<F5> is taken and a replacement was not assigned."
     endif
 endif
 
@@ -392,18 +368,8 @@ endif
 "let erlang_functions = 1
 "let erlang_characters = 1
 "
-
-"folding
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
-vnoremap <Space> zf
-
-
-let g:erlangManPath='/opt/local/lib/erlang/man'
-"let g:erlangCompletionDisplayDoc=1
-"let g:erlangHighlightBif=1
-
 "HL
-"set nowrap list listchars=eol:¿,tab:¿¿,trail:_,extends:¿,precedes:¿
+"set nowrap list listchars=eol:Â¿,tab:Â¿Â¿,trail:_,extends:Â¿,precedes:Â¿
 
 "wildmenu
 set wildmenu
@@ -416,15 +382,77 @@ nnoremap gf :vertical wincmd f<CR>
 "set mouse=a
 
 
+" VimClojure
+"execute pathogen#infect()
+let g:vimclojure#HighlightBuiltins = 1
+let g:vimclojure#ParenRainbow = 1
+let g:vimclojure#WantNailgun = 1
+
+au FileType xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+
+"" --------------------------------------
+"" colors
+"" --------------------------------------
+set t_Co=256
+if has("gui_running")
+"if has("gui_gtk2")
+"    if has("x11")
+"    colorscheme desert
+"    colorscheme MetaCosm
+"    colorscheme wombat
+    colorscheme compot
+    set guioptions=-t
+    "highlight Normal guibg=lightyellow
+else
+    colorscheme lucius
+endif
+set background=dark
+"colorscheme koehler
+"colorscheme slate
+"colorscheme desert
+"hi Folded ctermbg=yellow
+"let g:colors_name="desert"
+"highlight Comment cterm=italic
+"highlight Comment font=Verdana:h14
+"highlight Comment term=italic cterm=italic gui=italic
+"highlight Constant term=bold cterm=bold gui=bold
+"highlight Comment ctermbg=DarkGray
+"highlight Comment cterm=none term=italic gui=italic
+"
+
+
+"folding
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':'l')<CR>
+vnoremap <Space> zf
+
+
+let g:erlangManPath='/opt/local/lib/erlang/man'
+"let g:erlangCompletionDisplayDoc=1
+"let g:erlangHighlightBif=1
+
 "Erlang skeleton
 
 let g:erl_author="Vitalii Kulchevych <coolchevy@gmail.com>"
 let g:erl_company="coolchevy"
 let g:erl_replace_buffer=1
 
+" syntastic settings
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-" VimClojure
-execute pathogen#infect()
-let g:vimclojure#HighlightBuiltins = 1
-let g:vimclojure#ParenRainbow = 1
-let g:vimclojure#WantNailgun = 1
+let g:syntastic_always_populate_loc_list = 1
+" hide error list
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
+let g:syntastic_aggregate_errors = 1
+
+let g:syntastic_error_symbol='âœ—'
+let g:syntastic_warning_symbol='âš '
+let g:syntastic_style_error_symbol = 'âœ—'
+let g:syntastic_style_warning_symbol = 'âš '
+
+let g:syntastic_python_checkers=['python', 'flake8']
+let g:syntastic_python_flake8_post_args='--ignore=W391'
+let erlang_show_errors = 1
