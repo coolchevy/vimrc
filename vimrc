@@ -28,6 +28,8 @@ Plugin 'vim-erlang/vim-erlang-skeletons'
 Plugin 'edkolev/erlang-motions.vim'
 Plugin 'mbbx6spp/vim-rebar'
 Plugin 'akalyaev/vim-erlang-spec'
+Plugin 'vim-erlang/vim-erlang-omnicomplete'
+Plugin 'vim-erlang/vim-erlang-tags'
 "Erlang-friendly gVim/MacVim colorscheme (dark, lo-co)
 Plugin 'aerosol/vim-compot'
 " syntax checker
@@ -473,3 +475,20 @@ let erlang_show_errors = 1
 " erlang spec
 " \s added spec
 nnoremap <leader>s :ErlangSpec<CR>
+"
+"-------------------------------------------------------
+" erlang tags
+let g:erlang_tags_outfile = '.tags'
+
+
+" show column limit to 80
+augroup collumnLimit
+    autocmd!
+    autocmd BufEnter,WinEnter,FileType scala,java,erlang
+                \ highlight CollumnLimit ctermbg=DarkGrey guibg=DarkGrey
+    let collumnLimit = 79 " feel free to customize
+    let pattern =
+                \ '\%<' . (collumnLimit+1) . 'v.\%>' . collumnLimit . 'v'
+    autocmd BufEnter,WinEnter,FileType scala,java,erlang
+                \ let w:m1=matchadd('CollumnLimit', pattern, -1)
+augroup END
