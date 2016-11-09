@@ -51,6 +51,8 @@ Plugin 'nginx.vim'
 Plugin 'apachestyle'
 " Vim script for text filtering and alignment
 Plugin 'godlygeek/tabular'
+" BETTER JSON FOR VIM
+Plugin 'elzr/vim-json'
 
 
 
@@ -479,6 +481,7 @@ nnoremap <leader>s :ErlangSpec<CR>
 "-------------------------------------------------------
 " erlang tags
 let g:erlang_tags_outfile = '.tags'
+set tags=.tags
 
 
 " show column limit to 80
