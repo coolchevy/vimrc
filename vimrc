@@ -42,7 +42,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mhinz/vim-signify'
 " The ultimate vim statusline utility. DEPRECATED in favor of Lokaltog/powerline.
-Plugin 'bling/vim-airline'
+"Plugin 'bling/vim-airline'
 " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plugin 'tpope/vim-fugitive'
 " nginx webserver
@@ -53,6 +53,22 @@ Plugin 'apachestyle'
 Plugin 'godlygeek/tabular'
 " BETTER JSON FOR VIM
 Plugin 'elzr/vim-json'
+" Nerdtree
+Plugin 'scrooloose/nerdtree'
+" Nerdtree git
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+" wrangler
+Plugin 'ppikula/vim-wrangler'
+
+" Python
+Plugin 'klen/python-mode'	        " Python mode (docs, refactor, lints, highlighting, run and ipdb and more)
+Plugin 'davidhalter/jedi-vim' 		" Jedi-vim autocomplete plugin
+Plugin 'mitsuhiko/vim-jinja'		" Jinja support for vim
+Plugin 'mitsuhiko/vim-python-combined'  " Combined Python 2/3 for Vim
+
+
+
+
 
 
 
@@ -216,7 +232,7 @@ set shiftwidth=4
 set si
 set smarttab
 "set nowrap
-"set number
+set number
 
 " virtual editing
 set virtualedit=block
@@ -495,3 +511,128 @@ augroup collumnLimit
     autocmd BufEnter,WinEnter,FileType scala,java,erlang
                 \ let w:m1=matchadd('CollumnLimit', pattern, -1)
 augroup END
+
+"set path to wrangler directory
+let g:erlangWranglerPath = '/usr/local/Cellar/wrangler/'
+"sample wrangler bindings
+autocmd FileType erlang vnoremap <leader>e :WranglerExtractFunction<ENTER>
+autocmd FileType erlang noremap  <leader>m :WranglerRenameModule<ENTER>
+autocmd FileType erlang noremap  <leader>f :WranglerRenameFunction<ENTER>
+autocmd FileType erlang noremap  <leader>v :WranglerRenameVariable<ENTER>
+autocmd FileType erlang noremap  <leader>p :WranglerRenameProcess<ENTER>
+autocmd FileType erlang noremap  <leader>mv :WranglerMoveFunction<ENTER>
+autocmd FileType erlang noremap  <leader>u :WranglerUndo<ENTER>
+
+
+" NerdTree
+"
+" Open by default
+"autocmd vimenter * NERDTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Close vim if the only window left open is a NERDTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Closing automatically
+let NERDTreeQuitOnOpen = 1
+
+" Deleting files
+let NERDTreeAutoDeleteBuffer = 1
+
+" Prettier
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+
+" \f to toogle
+nnoremap <Leader>f :NERDTreeToggle<Enter>
+
+" \v to find current file in tree
+nnoremap <silent> <Leader>v :NERDTreeFind<CR>
+
+" \r to refresh root
+nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
+
+
+"" " Vim-Airline
+"" set laststatus=2
+"" "let g:airline_theme='badwolf'
+"" let g:airline_powerline_fonts = 1
+"" let g:airline#extensions#tabline#enabled = 1
+"" let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+"=====================================================
+" Python-mode settings
+"=====================================================
+" отключаем автокомплит по коду (у нас вместо него используется jedi-vim)
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+
+" документация
+let g:pymode_doc = 0
+let g:pymode_doc_key = 'K'
+" проверка кода
+let g:pymode_lint = 1
+let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_lint_ignore="E501,W601,C0110"
+" провека кода после сохранения
+let g:pymode_lint_write = 1
+
+" поддержка virtualenv
+let g:pymode_virtualenv = 1
+
+" установка breakpoints
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
+
+" подстветка синтаксиса
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+
+" отключить autofold по коду
+let g:pymode_folding = 0
+
+" возможность запускать код
+let g:pymode_run = 0
+
+" Disable choose first function/method at autocomplete
+let g:jedi#popup_select_first = 0
+
+
+
+
+"=====================================================
+" Languages support
+"=====================================================
+" --- Python ---
+autocmd FileType python set completeopt-=preview " раскомментируйте, в случае, если не надо, чтобы jedi-vim показывал документацию по методу/классу
+autocmd FileType python setlocal expandtab shiftwidth=4 tabstop=8
+\ formatoptions+=croq softtabstop=4 smartindent
+\ cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+autocmd FileType pyrex setlocal expandtab shiftwidth=4 tabstop=8 softtabstop=4 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class,with
+
+" --- JavaScript ---
+let javascript_enable_domhtmlcss=1
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd BufNewFile,BufRead *.json setlocal ft=javascript
+
+" --- HTML ---
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+
+" --- template language support (SGML / XML too) ---
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd bufnewfile,bufread *.rhtml setlocal ft=eruby
+autocmd BufNewFile,BufRead *.mako setlocal ft=mako
+autocmd BufNewFile,BufRead *.tmpl setlocal ft=htmljinja
+autocmd BufNewFile,BufRead *.py_tmpl setlocal ft=python
+let html_no_rendering=1
+let g:closetag_default_xml=1
+let g:sparkupNextMapping='<c-l>'
+autocmd FileType html,htmldjango,htmljinja,eruby,mako let b:closetag_html_style=1
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako source ~/.vim/scripts/closetag.vim
+
+" --- CSS ---
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType css setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
