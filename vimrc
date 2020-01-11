@@ -42,7 +42,7 @@ Plugin 'tpope/vim-sensible'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'mhinz/vim-signify'
 " The ultimate vim statusline utility. DEPRECATED in favor of Lokaltog/powerline.
-"Plugin 'bling/vim-airline'
+Plugin 'bling/vim-airline'
 " fugitive.vim: a Git wrapper so awesome, it should be illegal
 Plugin 'tpope/vim-fugitive'
 " nginx webserver
@@ -553,12 +553,12 @@ nnoremap <silent> <Leader>v :NERDTreeFind<CR>
 nmap <Leader>r :NERDTreeFocus<cr>R<c-w><c-p>
 
 
-"" " Vim-Airline
-"" set laststatus=2
-"" "let g:airline_theme='badwolf'
-"" let g:airline_powerline_fonts = 1
-"" let g:airline#extensions#tabline#enabled = 1
-"" let g:airline#extensions#tabline#formatter = 'unique_tail'
+" Vim-Airline
+set laststatus=2
+"let g:airline_theme='badwolf'
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 "=====================================================
 " Python-mode settings
