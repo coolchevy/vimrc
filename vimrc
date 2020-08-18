@@ -59,6 +59,10 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 " wrangler
 Plugin 'ppikula/vim-wrangler'
+" closetag
+Plugin 'docunext/closetag.vim'
+" Icons
+Plugin 'ryanoasis/vim-devicons'
 
 " Python
 Plugin 'klen/python-mode'	        " Python mode (docs, refactor, lints, highlighting, run and ipdb and more)
@@ -279,12 +283,12 @@ endfunction
 " SET GUI FONT
 if has("gui_running")
     if has("gui_gtk2")
-	set guifont=Terminus\ 12
+        set guifont=Terminus\ 12
     elseif has("x11")
-	set guifont=-*-Terminus-medium-r-normal-*-*-180-*-*-m-*-*
+        set guifont=-*-Terminus-medium-r-normal-*-*-180-*-*-m-*-*
     else
 "        set guifont=Terminus:h12:cDEFAULT
-	set guifont=Monaco:h14
+        set guifont=DroidSansMonoNerdFontComplete-:h14
     endif
 endif
 " / SET GUI FONT
@@ -529,7 +533,8 @@ autocmd FileType erlang noremap  <leader>u :WranglerUndo<ENTER>
 " Open by default
 "autocmd vimenter * NERDTree
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Open if empty window
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Close vim if the only window left open is a NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -631,7 +636,7 @@ let html_no_rendering=1
 let g:closetag_default_xml=1
 let g:sparkupNextMapping='<c-l>'
 autocmd FileType html,htmldjango,htmljinja,eruby,mako let b:closetag_html_style=1
-autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako source ~/.vim/scripts/closetag.vim
+autocmd FileType html,xhtml,xml,htmldjango,htmljinja,eruby,mako source ~/.vim/bundle/closetag.vim/plugin/closetag.vim
 
 " --- CSS ---
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
